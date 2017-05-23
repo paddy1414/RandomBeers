@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Random Beers</string>
+    <string name="beer_title">Beer Title</string>
+    <string name="next_beer">Next</string>
+    <string name="beer_desc">Description</string>
 </resources>
