@@ -13,6 +13,7 @@ public class BeerResponse {
     @SerializedName("data")
     private Beer data;
 
+
     public String getMessage() {
         return message;
     }

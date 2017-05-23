@@ -18,6 +18,7 @@ import pdesigns.com.randombeers.DTO.ApiClient;
 import pdesigns.com.randombeers.DTO.ApiInterface;
 import pdesigns.com.randombeers.DTO.Beer;
 import pdesigns.com.randombeers.DTO.BeerResponse;
+import pdesigns.com.randombeers.ImageHandlers.LoadImage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final static String API_KEY = "bf0eac94928c81fddca1d7e246cd9753";
 
     Beer beer;
+
+    private LoadImage loadImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,10 +83,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onResponse(Call<BeerResponse>call, Response<BeerResponse> response) {
                     beer = response.body().getResults();
                     Log.d(TAG, "Number of beer received: " + beer.toString());
-                //    Log.d("image", beer.getImgMedium());
+                  //  Log.d("image", beer.getImgMediumList().toString());
                     beerDescp.setText(beer.getDescription());
                     beerName.setText(beer.getNameDisplay());
 
+                    loadImage = new LoadImage(getApplicationContext());
+                    loadImage.DisplayImage(beer.getImgMedium(), beerImage);
                 }
 
 

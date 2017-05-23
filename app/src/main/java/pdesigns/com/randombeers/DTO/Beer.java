@@ -17,24 +17,21 @@ public class Beer {
     @SerializedName("description")
     private String description;
 
-    @SerializedName("medium")
     private String imgMedium;
 
+    @SerializedName("labels")
+    private ImageUrl imageObj;
 
 
 
-    /*
-    public Beer(String nameDisplay, String description, String imgMedium) {
+    public Beer(String nameDisplay, String description, ImageUrl imageObj) {
         this.nameDisplay = nameDisplay;
         this.description = description;
-        this.imgMedium = imgMedium;
-    }
-    */
+        this.imageObj = imageObj;
 
-    public Beer(String nameDisplay, String description, String imgMedium) {
-        this.nameDisplay = nameDisplay;
-        this.description = description;
-        this.imgMedium = imgMedium;
+
+
+
     }
 
     public String getNameDisplay() {
@@ -46,6 +43,9 @@ public class Beer {
     }
 
     public String getDescription() {
+        if (description==null) {
+            description ="This is currently no description regarding " + nameDisplay;
+        }
         return description;
     }
 
@@ -54,6 +54,11 @@ public class Beer {
     }
 
     public String getImgMedium() {
+        if(imageObj ==null) {
+            this.imgMedium = "http://www.pizzasole.ro/uploads/menu/menu-noimage.jpg";
+        } else {
+            this.imgMedium = imageObj.getLarge();
+        }
         return imgMedium;
     }
 
@@ -61,18 +66,15 @@ public class Beer {
         this.imgMedium = imgMedium;
     }
 
-
-
-    /*
-    @Override
-    public String toString() {
-        return "Beer{" +
-                "nameDisplay='" + nameDisplay + '\'' +
-                ", description='" + description + '\'' +
-                ", imgMedium='" + imgMedium + '\'' +
-                '}';
+    public ImageUrl getImageObj() {
+        return imageObj;
     }
-    */
+
+    public void setImageObj(ImageUrl imageObj) {
+        this.imageObj = imageObj;
+    }
+
+
 
     @Override
     public String toString() {
@@ -80,6 +82,7 @@ public class Beer {
                 "nameDisplay='" + nameDisplay + '\'' +
                 ", description='" + description + '\'' +
                 ", imgMedium='" + imgMedium + '\'' +
+  //              ", imgMediumList='" + imgMediumList + '\'' +
                 '}';
     }
 }
