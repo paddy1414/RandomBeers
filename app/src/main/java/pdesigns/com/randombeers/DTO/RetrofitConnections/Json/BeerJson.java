@@ -1,15 +1,12 @@
-package pdesigns.com.randombeers.DTO;
+package pdesigns.com.randombeers.DTO.RetrofitConnections.Json;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Patrick on 23/05/2017.
  */
 
-public class Beer {
+public class BeerJson {
 
     @SerializedName("nameDisplay")
     private String nameDisplay;
@@ -20,11 +17,11 @@ public class Beer {
     private String imgMedium;
 
     @SerializedName("labels")
-    private ImageUrl imageObj;
+    private ImageUrlJson imageObj;
 
 
 
-    public Beer(String nameDisplay, String description, ImageUrl imageObj) {
+    public BeerJson(String nameDisplay, String description, ImageUrlJson imageObj) {
         this.nameDisplay = nameDisplay;
         this.description = description;
         this.imageObj = imageObj;
@@ -66,11 +63,11 @@ public class Beer {
         this.imgMedium = imgMedium;
     }
 
-    public ImageUrl getImageObj() {
+    public ImageUrlJson getImageObj() {
         return imageObj;
     }
 
-    public void setImageObj(ImageUrl imageObj) {
+    public void setImageObj(ImageUrlJson imageObj) {
         this.imageObj = imageObj;
     }
 
@@ -78,7 +75,7 @@ public class Beer {
 
     @Override
     public String toString() {
-        return "Beer{" +
+        return "BeerJson{" +
                 "nameDisplay='" + nameDisplay + '\'' +
                 ", description='" + description + '\'' +
                 ", imgMedium='" + imgMedium + '\'' +

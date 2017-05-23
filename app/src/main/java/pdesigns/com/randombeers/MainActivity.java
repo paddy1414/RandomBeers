@@ -1,7 +1,6 @@
 package pdesigns.com.randombeers;
 
 
-import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
-import pdesigns.com.randombeers.DTO.ApiClient;
-import pdesigns.com.randombeers.DTO.ApiInterface;
-import pdesigns.com.randombeers.DTO.Beer;
-import pdesigns.com.randombeers.DTO.BeerResponse;
+import pdesigns.com.randombeers.DTO.RetrofitConnections.ApiClientJson;
+import pdesigns.com.randombeers.DTO.RetrofitConnections.ApiClientXml;
+import pdesigns.com.randombeers.DTO.RetrofitConnections.Json.ApiInterfaceJson;
+import pdesigns.com.randombeers.DTO.RetrofitConnections.Json.BeerJson;
+import pdesigns.com.randombeers.DTO.RetrofitConnections.Json.BeerResponseJson;
+import pdesigns.com.randombeers.DTO.RetrofitConnections.Xml.ApiInterfaceXml;
+import pdesigns.com.randombeers.DTO.RetrofitConnections.Xml.BeerResponseXml;
+import pdesigns.com.randombeers.DTO.RetrofitConnections.Xml.BeerXml;
 import pdesigns.com.randombeers.ImageHandlers.LoadImage;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,14 +30,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView beerDescp, beerName;
     private ImageView beerImage;
 
-    private String urlString = "https://api.brewerydb.com/v2/beer/random?key=bf0eac94928c81fddca1d7e246cd9753&format=json";
+    private String urlString = "https://api.brewerydb.com/v2/beerJson/random?key=bf0eac94928c81fddca1d7e246cd9753&format=json";
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     // API key
     private final static String API_KEY = "bf0eac94928c81fddca1d7e246cd9753";
 
-    Beer beer;
+    BeerJson beerJson;
+
+    BeerXml beerXml;
 
     private LoadImage loadImage;
 
@@ -51,20 +54,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nextBeer  = (Button) findViewById(R.id.next_beet_btn);
 
         nextBeer.setOnClickListener(this);
-        new GetRandBeers().execute();
 
+    //    new GetRandBeersJson().execute();
+        new GetRandBeersXml().execute();
     }
 
     @Override
     public void onClick(View view) {
         if (view == nextBeer) {
-            new GetRandBeers().execute();
+            new GetRandBeersXml().execute();
         }
     }
 
 
+
+
     // A background async task to load all bars by making http request
-    private class GetRandBeers extends AsyncTask<String, String, String> {
+    private class GetRandBeersJson extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -74,26 +80,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return null;
             }
 
-            ApiInterface apiService =
-                    ApiClient.getClient().create(ApiInterface.class);
+            ApiInterfaceJson apiService =
+                    ApiClientJson.getClient().create(ApiInterfaceJson.class);
 
-            Call<BeerResponse> call = apiService.getRandomBeer(API_KEY);
-            call.enqueue(new Callback<BeerResponse>() {
+            Call<BeerResponseJson> call = apiService.getRandomBeer(API_KEY, "json");
+            call.enqueue(new Callback<BeerResponseJson>() {
                 @Override
-                public void onResponse(Call<BeerResponse>call, Response<BeerResponse> response) {
-                    beer = response.body().getResults();
-                    Log.d(TAG, "Number of beer received: " + beer.toString());
-                  //  Log.d("image", beer.getImgMediumList().toString());
-                    beerDescp.setText(beer.getDescription());
-                    beerName.setText(beer.getNameDisplay());
+                public void onResponse(Call<BeerResponseJson>call, Response<BeerResponseJson> response) {
+                    beerJson = response.body().getResults();
+                    Log.d(TAG, "Number of beerJson received: " + beerJson.toString());
+                  //  Log.d("image", beerJson.getImgMediumList().toString());
+                    beerDescp.setText(beerJson.getDescription());
+                    beerName.setText(beerJson.getNameDisplay());
 
                     loadImage = new LoadImage(getApplicationContext());
-                    loadImage.DisplayImage(beer.getImgMedium(), beerImage);
+                    loadImage.DisplayImage(beerJson.getImgMedium(), beerImage);
                 }
 
 
                 @Override
-                public void onFailure(Call<BeerResponse>call, Throwable t) {
+                public void onFailure(Call<BeerResponseJson>call, Throwable t) {
                     // Log error here since request failed
                     Log.e(TAG, t.toString());
                 }
@@ -102,6 +108,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return null;
         }
     }
+
+
+    // A background async task to load all bars by making http request
+    private class GetRandBeersXml extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            //Check to see if results is empty
+            if (API_KEY.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please obtain your API KEY first from themoviedb.org", Toast.LENGTH_LONG).show();
+                return null;
+            }
+
+            ApiInterfaceXml apiService =
+                    ApiClientXml.getClient().create(ApiInterfaceXml.class);
+
+            Call<BeerResponseXml> call = apiService.getRandomBeer(API_KEY, "xml");
+            call.enqueue(new Callback<BeerResponseXml>() {
+                @Override
+                public void onResponse(Call<BeerResponseXml>call, Response<BeerResponseXml> response) {
+                    beerXml = response.body().getData();
+                    Log.d(TAG, "Number of beerXml received: " + beerXml.toString());
+
+                    beerDescp.setText(beerXml.getDescription());
+                    beerName.setText(beerXml.getTitle());
+
+                    loadImage = new LoadImage(getApplicationContext());
+                    loadImage.DisplayImage(beerXml.getImgMedium(), beerImage);
+
+                }
+
+
+                @Override
+                public void onFailure(Call<BeerResponseXml>call, Throwable t) {
+                    // Log error here since request failed
+                    Log.e(TAG, t.toString());
+                }
+            });
+
+            return null;
+        }
+    }
+
 
 
 

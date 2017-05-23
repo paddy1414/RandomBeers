@@ -3,4 +3,5 @@
     <string name="beer_title">Beer Title</string>
     <string name="next_beer">Next</string>
     <string name="beer_desc">Description</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
 </resources>

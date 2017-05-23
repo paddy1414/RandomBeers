@@ -1,4 +1,4 @@
-package pdesigns.com.randombeers.DTO;
+package pdesigns.com.randombeers.DTO.RetrofitConnections.Json;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,12 +6,12 @@ import com.google.gson.annotations.SerializedName;
  * Created by Patrick on 23/05/2017.
  */
 
-public class BeerResponse {
+public class BeerResponseJson {
 
     @SerializedName("message")
     private String message;
     @SerializedName("data")
-    private Beer data;
+    private BeerJson data;
 
 
     public String getMessage() {
@@ -22,11 +22,11 @@ public class BeerResponse {
         this.message = message;
     }
 
-    public Beer getResults() {
+    public BeerJson getResults() {
         return data;
     }
 
-    public void setResults(Beer data) {
+    public void setResults(BeerJson data) {
         this.data = data;
     }
 

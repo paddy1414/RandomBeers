@@ -1,4 +1,4 @@
-package pdesigns.com.randombeers.DTO;
+package pdesigns.com.randombeers.DTO.RetrofitConnections.Json;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Patrick on 23/05/2017.
  */
 
-public class ImageUrl {
+public class ImageUrlJson {
 
     @SerializedName("icon")
     private String icon;
@@ -16,7 +16,7 @@ public class ImageUrl {
     private String large;
 
 
-    public ImageUrl(String icon, String medium, String large) {
+    public ImageUrlJson(String icon, String medium, String large) {
         this.icon = icon;
         this.medium = medium;
         this.large = large;
@@ -48,7 +48,7 @@ public class ImageUrl {
 
     @Override
     public String toString() {
-        return "ImageUrl{" +
+        return "ImageUrlJson{" +
                 "icon='" + icon + '\'' +
                 ", medium='" + medium + '\'' +
                 ", large='" + large + '\'' +

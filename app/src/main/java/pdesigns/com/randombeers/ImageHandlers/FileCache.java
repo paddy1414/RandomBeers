@@ -21,7 +21,7 @@ public class FileCache {
     public FileCache(Context context) {
         //find the directoryu tp save cached images
         if (Environment.getExternalStorageDirectory().equals(Environment.MEDIA_MOUNTED)) {
-            cachDir = new File(Environment.getExternalStorageDirectory(), "HappyAppy");
+            cachDir = new File(Environment.getExternalStorageDirectory(), "RandomBeer");
         } else {
             cachDir = context.getCacheDir();
         }
