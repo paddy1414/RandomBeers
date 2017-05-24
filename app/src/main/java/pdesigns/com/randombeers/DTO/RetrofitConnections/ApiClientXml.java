@@ -10,8 +10,12 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class ApiClientXml {
 
+    /**
+     * Build the get Requset using the BASE_URL & api key provided
+     *
+     * @return the client
+     */
 
-    //  private static final String urlString = "https://api.brewerydb.com/v2/beer/random?key=bf0eac94928c81fddca1d7e246cd9753&format=json";
     public static final String BASE_URL = "https://api.brewerydb.com/v2/";
     private static Retrofit retrofitXml = null;
 

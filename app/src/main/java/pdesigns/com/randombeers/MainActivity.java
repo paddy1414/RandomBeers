@@ -3,6 +3,8 @@ package pdesigns.com.randombeers;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
 
     private Button nextBeer;
@@ -37,11 +42,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // API key
     private final static String API_KEY = "bf0eac94928c81fddca1d7e246cd9753";
 
+    /**
+     * The Beer json.
+     */
     BeerJson beerJson;
 
+    /**
+     * The Beer xml.
+     */
     BeerXml beerXml;
 
     private LoadImage loadImage;
+
+  //  View currentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +67,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nextBeer  = (Button) findViewById(R.id.next_beet_btn);
 
         nextBeer.setOnClickListener(this);
+      //  currentView =  View.getRootView();
 
-    //    new GetRandBeersJson().execute();
+        //    new GetRandBeersJson().execute();
         new GetRandBeersXml().execute();
     }
 
     @Override
     public void onClick(View view) {
         if (view == nextBeer) {
+            Snackbar snackbar = Snackbar
+                    .make(view, "Random beer is Loading using XML", Snackbar.LENGTH_LONG);
+            snackbar.show();
             new GetRandBeersXml().execute();
         }
     }
-
-
 
 
     // A background async task to load all bars by making http request
@@ -74,9 +89,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected String doInBackground(String... strings) {
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content), "Random beer is Loading using JSON", Snackbar.LENGTH_LONG);
+            snackbar.show();
             //Check to see if results is empty
             if (API_KEY.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Please obtain your API KEY first from themoviedb.org", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Please obtain your API KEY first from brewerydb.com", Toast.LENGTH_LONG).show();
+                snackbar = Snackbar
+                        .make(findViewById(android.R.id.content), "Please obtain your API KEY first from brewerydb.com", Snackbar.LENGTH_LONG);
+                snackbar.show();
                 return null;
             }
 
@@ -96,8 +117,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     loadImage = new LoadImage(getApplicationContext());
                     loadImage.DisplayImage(beerJson.getImgMedium(), beerImage);
                 }
-
-
                 @Override
                 public void onFailure(Call<BeerResponseJson>call, Throwable t) {
                     // Log error here since request failed
@@ -109,21 +128,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-    // A background async task to load all bars by making http request
+    // A background async task to
     private class GetRandBeersXml extends AsyncTask<String, String, String> {
-
         @Override
         protected String doInBackground(String... strings) {
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(android.R.id.content), "Radom beer is Loading Using XML", Snackbar.LENGTH_LONG);
+            snackbar.show();
             //Check to see if results is empty
             if (API_KEY.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Please obtain your API KEY first from themoviedb.org", Toast.LENGTH_LONG).show();
+      //          Toast.makeText(getApplicationContext(), "Please obtain your API KEY first from brewerydb.com", Toast.LENGTH_LONG).show();
+
+                 snackbar = Snackbar
+                        .make(findViewById(android.R.id.content), "Please obtain your API KEY first from brewerydb.com", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
                 return null;
             }
 
             ApiInterfaceXml apiService =
                     ApiClientXml.getClient().create(ApiInterfaceXml.class);
-
+            //Makes the call to the api usring the constructer specified in ApiClint, while passing in the API key, &type
             Call<BeerResponseXml> call = apiService.getRandomBeer(API_KEY, "xml");
             call.enqueue(new Callback<BeerResponseXml>() {
                 @Override
@@ -136,9 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     loadImage = new LoadImage(getApplicationContext());
                     loadImage.DisplayImage(beerXml.getImgMedium(), beerImage);
-
                 }
-
 
                 @Override
                 public void onFailure(Call<BeerResponseXml>call, Throwable t) {

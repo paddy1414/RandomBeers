@@ -12,10 +12,9 @@ import retrofit2.http.Query;
 public interface ApiInterfaceXml {
 
 
+    // Builds the get request that will be sent to the APIClient Class
     @GET("beer/random")
     Call<BeerResponseXml> getRandomBeer(@Query("key") String apiKey, @Query("format") String type);
 
-    //  @GET("movie/{id}")
-    // Call<BeerResponseJson> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey);
 
 }

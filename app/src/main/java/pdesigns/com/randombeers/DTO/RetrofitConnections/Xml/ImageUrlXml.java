@@ -9,7 +9,7 @@ import org.simpleframework.xml.Root;
 @Root(name = "labels", strict = false)
 public class ImageUrlXml {
 
-
+    //Pulls in any data that the element specifies
     @Element(name = "icon")
     private String icon;
 

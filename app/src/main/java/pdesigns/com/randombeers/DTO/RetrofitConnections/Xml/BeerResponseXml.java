@@ -1,12 +1,7 @@
 package pdesigns.com.randombeers.DTO.RetrofitConnections.Xml;
 
-import com.google.gson.annotations.SerializedName;
-
-
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Path;
-import org.simpleframework.xml.Root;
+
 
 /**
  * Created by Patrick on 23/05/2017.
@@ -14,6 +9,7 @@ import org.simpleframework.xml.Root;
 //@Root(name="root", strict=false)
 public class BeerResponseXml {
 
+    //Element is used to pull the tags defined in the brackets
     @Element(name= "message")
     private String message;
 

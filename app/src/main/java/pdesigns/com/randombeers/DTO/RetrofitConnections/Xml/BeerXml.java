@@ -10,6 +10,7 @@ import org.simpleframework.xml.Root;
 @Root(name = "data", strict = false)
 public class BeerXml {
 
+    //Pulls in any data that the element specifies
     @Element(name = "nameDisplay")
     private String nameDisplay;
 

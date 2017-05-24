@@ -6,14 +6,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Patrick on 23/05/2017.
  */
-
 public class ApiClientJson {
 
-  //  private static final String urlString = "https://api.brewerydb.com/v2/beer/random?key=bf0eac94928c81fddca1d7e246cd9753&format=json";
+
+    /**
+     * The constant BASE_URL.
+     */
     public static final String BASE_URL = "https://api.brewerydb.com/v2/";
     private static Retrofit retrofit = null;
 
 
+    /**
+     * Build the get Requset using the BASE_URL & api key provided
+     *
+     * @return the client
+     */
     public static Retrofit getClient() {
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()

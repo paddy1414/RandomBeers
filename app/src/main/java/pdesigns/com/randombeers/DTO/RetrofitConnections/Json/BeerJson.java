@@ -25,10 +25,6 @@ public class BeerJson {
         this.nameDisplay = nameDisplay;
         this.description = description;
         this.imageObj = imageObj;
-
-
-
-
     }
 
     public String getNameDisplay() {
@@ -79,7 +75,6 @@ public class BeerJson {
                 "nameDisplay='" + nameDisplay + '\'' +
                 ", description='" + description + '\'' +
                 ", imgMedium='" + imgMedium + '\'' +
-  //              ", imgMediumList='" + imgMediumList + '\'' +
                 '}';
     }
 }

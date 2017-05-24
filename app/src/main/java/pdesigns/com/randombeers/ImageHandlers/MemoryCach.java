@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * Created by Patrick on 06/08/14.
+ * Created by Patrick on 23/05/2017.
  */
 public class MemoryCach {
     private static final String TAG = "MemoryCache";
