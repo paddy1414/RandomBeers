@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import pdesigns.com.randombeers.DTO.RetrofitConnections.ApiClientJson;
 import pdesigns.com.randombeers.DTO.RetrofitConnections.ApiClientXml;
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             snackbar.show();
             //Check to see if results is empty
             if (API_KEY.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Please obtain your API KEY first from brewerydb.com", Toast.LENGTH_LONG).show();
                 snackbar = Snackbar
                         .make(findViewById(android.R.id.content), "Please obtain your API KEY first from brewerydb.com", Snackbar.LENGTH_LONG);
                 snackbar.show();
@@ -137,8 +135,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             snackbar.show();
             //Check to see if results is empty
             if (API_KEY.isEmpty()) {
-      //          Toast.makeText(getApplicationContext(), "Please obtain your API KEY first from brewerydb.com", Toast.LENGTH_LONG).show();
-
                  snackbar = Snackbar
                         .make(findViewById(android.R.id.content), "Please obtain your API KEY first from brewerydb.com", Snackbar.LENGTH_LONG);
                 snackbar.show();
